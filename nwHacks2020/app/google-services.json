@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "752539092815",
+    "firebase_url": "https://green-eats-af481.firebaseio.com",
+    "project_id": "green-eats-af481",
+    "storage_bucket": "green-eats-af481.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:752539092815:android:32ff131fbfa9fb9854673a",
+        "android_client_info": {
+          "package_name": "com.example.nwhacks2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "752539092815-f0r3vdh4pnfdgrf7d61ne0qj0h6942g6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4259loHoDGTgRj5xg7Tuq-_DQoBV5XXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "752539092815-f0r3vdh4pnfdgrf7d61ne0qj0h6942g6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
