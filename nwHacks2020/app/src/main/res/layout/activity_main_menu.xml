@@ -5,43 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainMenu"
-    android:gravity="center">
+    >
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button1"
-        android:layout_width="150dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/manualentrytoolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="my Fridge"
-        android:onClick="goToInventory"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/green"
+        android:elevation="10dp"
+        >
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
-        />
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="my Fridge"
+            android:onClick="goToInventory"
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button2"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Add Food Items"
-        android:layout_below="@id/button1"
-        android:onClick="goToAddFood"
-        />
+            />
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button4"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Expiring Soon"
-        android:layout_below="@id/button2"
-        />
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button5"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Scan Receipt"
-        android:layout_below="@id/button4"
-        android:onClick="goToScanReceipt"
-        />
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Add Food Items"
+            android:layout_below="@id/button1"
+            android:onClick="goToAddFood"
+            />
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button4"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Expiring Soon"
+            android:layout_below="@id/button2"
+            />
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button5"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Scan Receipt"
+            android:layout_below="@id/button4"
+            android:onClick="goToScanReceipt"
+            />
+    </RelativeLayout>
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.nwhacks2020;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -27,10 +28,18 @@ public class ManualEntry extends AppCompatActivity {
     FirebaseAuth mAuth;
     EditText foodItem, expirationDate;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_entry);
+
+        toolbar =  findViewById(R.id.manualentrytoolbar);
+        toolbar.setTitle("Manual Entry");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mStore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -40,6 +49,11 @@ public class ManualEntry extends AppCompatActivity {
     }
 
     public void submitEntry(View view){
+
+        if(foodItem.getText().toString().equals("") || expirationDate.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(), "Please fill out the fields above", Toast.LENGTH_SHORT);
+            return;
+        }
 
         mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -63,8 +77,14 @@ public class ManualEntry extends AppCompatActivity {
 
     }
 
-    private void goBackToLastScreen(){
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
+    }
 
+    private void goBackToLastScreen(){
+        onSupportNavigateUp();
     }
 
 

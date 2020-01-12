@@ -1,6 +1,7 @@
 package com.example.nwhacks2020;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,11 +43,18 @@ public class Recipes extends AppCompatActivity {
     String jstring;
     ListView recipes;
     CustomAdapter adapter;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
+
+        toolbar =  findViewById(R.id.manualentrytoolbar);
+        toolbar.setTitle("Recipes");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         recipes = (ListView) findViewById(R.id.recipes);
         adapter = new CustomAdapter();
@@ -76,7 +84,12 @@ public class Recipes extends AppCompatActivity {
 
 //        } catch (JSONException e) {
 //            e.printStackTrace();
-//        }
+   }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
 
     }
 

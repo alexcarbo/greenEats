@@ -67,7 +67,6 @@ public class Inventory extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setBackgroundColor(Color.parseColor("#333333"));
 
         mStore =FirebaseFirestore.getInstance();
         listView = (ListView) findViewById(R.id.inventorylistview);
@@ -121,6 +120,12 @@ public class Inventory extends AppCompatActivity {
     public void goToAddFood(View view){
         Intent intent = new Intent(getApplicationContext(), AddFood.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
     }
 
 
