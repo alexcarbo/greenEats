@@ -18,12 +18,11 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import java.io.IOException
@@ -43,6 +42,8 @@ private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 
 class Camera : AppCompatActivity(), LifecycleOwner {
 
+    var toolbar: Toolbar?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
@@ -50,7 +51,18 @@ class Camera : AppCompatActivity(), LifecycleOwner {
         // Add this at the end of onCreate function
 
         viewFinder = findViewById(R.id.view_finder)
+        toolbar = findViewById<Toolbar>(R.id.manualentrytoolbar)
+        setSupportActionBar(toolbar)
 
+        // Now get the support action bar
+        val actionBar = supportActionBar
+
+        // Set toolbar title/app title
+        actionBar!!.title = "Scan or Upload Your Receipt!"
+        actionBar.setDisplayShowHomeEnabled(true)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
         val buttonLoadImage = findViewById<ImageButton>(R.id.upload_button)
         buttonLoadImage.setOnClickListener {
             val i = Intent(
@@ -189,10 +201,10 @@ class Camera : AppCompatActivity(), LifecycleOwner {
                                 if (str.contains("*") || str.contains("--") || str.toLowerCase().contains("total")) {
                                     flag = false
                                 }
-                                if (flag && !str.contains(".") && !str.contains("ORDERED") && !str.contains("?") && !str.contains("!")) {
+                                if (flag && !str.contains(".") && !str.contains("ORDERED") && !str.contains("?") && !str.contains("!") && !str.contains("$")) {
                                     items.add(str)
                                 }
-                                if (str.toLowerCase().equals("AMOUNT") || (Pattern.matches("^\\D?(\\d{3})\\D?\\D?(\\d{3})\\D?(\\d{4})\$", str) && items.isEmpty())) {
+                                if (str.toLowerCase() == "amount" || (Pattern.matches("^\\D?(\\d{3})\\D?\\D?(\\d{3})\\D?(\\d{4})\$", str) && items.isEmpty())) {
                                     flag = true
                                 }
                             }
@@ -214,6 +226,10 @@ class Camera : AppCompatActivity(), LifecycleOwner {
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 
 
     private fun updateTransform() {
