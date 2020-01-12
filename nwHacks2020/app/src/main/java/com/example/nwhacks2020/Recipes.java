@@ -217,37 +217,37 @@ public class Recipes extends AppCompatActivity {
 
     }
 
-    private class Recipe{
-        private String title;
-        private String url;
-
-        Recipe(){
-            super();
-        }
-
-        Recipe(String title, String url){
-            super();
-            this.title = title;
-            this.url = url;
-        }
-
-        public String getTitle(){
-            return this.title;
-        }
-
-        public String getURL(){
-            return this.url;
-        }
-
-        public void setTitle(String t){
-            title = t;
-        }
-
-        public void setURL(String u){
-            url = u;
-        }
-
-    }
+//    private class Recipe{
+//        private String title;
+//        private String url;
+//
+//        Recipe(){
+//            super();
+//        }
+//
+//        Recipe(String title, String url){
+//            super();
+//            this.title = title;
+//            this.url = url;
+//        }
+//
+//        public String getTitle(){
+//            return this.title;
+//        }
+//
+//        public String getURL(){
+//            return this.url;
+//        }
+//
+//        public void setTitle(String t){
+//            title = t;
+//        }
+//
+//        public void setURL(String u){
+//            url = u;
+//        }
+//
+//    }
 
 
 }
