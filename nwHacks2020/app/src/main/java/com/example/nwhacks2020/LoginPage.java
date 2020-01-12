@@ -128,7 +128,7 @@ public class LoginPage extends AppCompatActivity {
 
 //        Map<String, List<String>> inventoryInfo = new HashMap<>();
 //        inventoryInfo.put(userEmail, new ArrayList<String>());
-        ddb.collection("Inventory").document(userEmail);
+        ddb.collection("Inventory").add(new ArrayList<String>());
 
 
     }
