@@ -4,23 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Speech"
-    android:gravity="center">
+    tools:context=".Speech">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/inventorytoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/green"
+        android:elevation="10dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
         android:id="@+id/hello"
         android:layout_width="366dp"
         android:layout_height="295dp"
         android:text="Hello World!"
-         />
+        />
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onSpeechButtonClicked"
-        android:text="Button"
-        android:layout_below="@id/hello" />
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSpeechButtonClicked"
+            android:text="Button"
+            android:layout_below="@id/hello" />
+
+    </RelativeLayout>
+
+
+
+
 
 </RelativeLayout>

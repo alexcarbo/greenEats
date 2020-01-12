@@ -5,39 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ManualEntry"
-    android:gravity="center"
     >
 
 
-    <EditText
-        android:id="@+id/foodinput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Food Item"
-        />
 
-    <EditText
-        android:id="@+id/expirydateinput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
-        android:layout_marginBottom="20dp"
-        android:layout_below="@id/foodinput"
-        android:hint="Days to Expire"
-        />
+        <EditText
+            android:id="@+id/foodinput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Food Item"
+            />
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button2"
-        android:layout_width="220dp"
+        <EditText
+            android:id="@+id/expirydateinput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+
+            android:layout_marginBottom="20dp"
+            android:layout_below="@id/foodinput"
+            android:hint="Days to Expire"
+            />
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button2"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:onClick="submitEntry"
+            android:layout_below="@id/expirydateinput"
+            />
+
+    </RelativeLayout>
+
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/manualentrytoolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"
-        android:onClick="submitEntry"
-        android:layout_below="@id/expirydateinput"
-        />
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/green"
+        android:elevation="10dp"
+        >
+    </androidx.appcompat.widget.Toolbar>
 
 
 </RelativeLayout>

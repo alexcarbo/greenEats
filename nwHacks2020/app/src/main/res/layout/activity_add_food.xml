@@ -7,31 +7,50 @@
     tools:context=".AddFood"
     android:gravity="center">
 
-
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button1"
-        android:layout_width="150dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/manualentrytoolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Manual Entry"/>
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/green"
+        android:elevation="10dp"
+        >
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Manual Entry"
+            android:onClick="goToManualEntry"/>
 
 
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button2"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/button1"
-        android:onClick="goToSpeech"
-        android:text="Voice Entry" />
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button3"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Scan"
-        android:layout_below="@id/button2"
-        />
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button1"
+            android:onClick="goToSpeech"
+            android:text="Voice Entry" />
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button3"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Scan"
+            android:layout_below="@id/button2"
+            />
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>
 

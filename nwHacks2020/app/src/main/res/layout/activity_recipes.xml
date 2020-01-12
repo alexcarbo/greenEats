@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".Recipes">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/manualentrytoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/green"
+        android:elevation="10dp"
+        >
+    </androidx.appcompat.widget.Toolbar>
+
     <ListView
         android:id="@+id/recipes"
         android:layout_width="match_parent"
