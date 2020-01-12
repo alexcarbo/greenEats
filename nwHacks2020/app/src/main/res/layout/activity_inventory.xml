@@ -9,7 +9,11 @@
 
 
 
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/inventorytoolbar">
 
         <ListView
             android:id="@+id/inventorylistview"
@@ -20,6 +24,10 @@
             android:layout_above="@id/recommendrecipes">
 
         </ListView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/recommendrecipes"
