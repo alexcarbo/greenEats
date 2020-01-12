@@ -3,6 +3,7 @@
     package="com.example.nwhacks2020">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,8 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".ManualEntry"></activity>
+        <activity android:name=".TextAnalyzer"></activity>
         <activity android:name=".Camera" />
         <activity android:name=".Speech" />
+        <activity android:name=".Recipes"></activity>
         <activity android:name=".AddFood" />
         <activity android:name=".Inventory" />
         <activity android:name=".MainMenu" />
@@ -25,6 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr" />
     </application>
 
 </manifest>

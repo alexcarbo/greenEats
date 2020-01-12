@@ -36,16 +36,26 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.3.1'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
 
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
+
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     // CameraX
     def camerax_version = '1.0.0-alpha06'
     implementation "androidx.camera:camera-core:${camerax_version}"
     implementation "androidx.camera:camera-camera2:${camerax_version}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+
     implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.7.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.7.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.android.volley:volley:1.1.1'
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'

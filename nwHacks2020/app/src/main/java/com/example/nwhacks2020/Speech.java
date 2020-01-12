@@ -1,5 +1,6 @@
 package com.example.nwhacks2020;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -9,6 +10,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.nwhacks2020.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.microsoft.cognitiveservices.speech.ResultReason;
 import com.microsoft.cognitiveservices.speech.SpeechConfig;
 import com.microsoft.cognitiveservices.speech.SpeechRecognitionResult;
@@ -17,9 +25,11 @@ import com.microsoft.cognitiveservices.speech.SpeechRecognizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 
 import static android.Manifest.permission.*;
+import static java.sql.Types.NULL;
 
 public class Speech extends AppCompatActivity {
 
@@ -27,6 +37,9 @@ public class Speech extends AppCompatActivity {
     private static String speechSubscriptionKey = "210804fbd4a140a7aa9c2ec68872d83d";
     // Replace below with your own service region (e.g., "westus").
     private static String serviceRegion = "westus2";
+
+    FirebaseFirestore mStore;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +49,8 @@ public class Speech extends AppCompatActivity {
         // Note: we need to request the permissions
         int requestCode = 5; // unique code for the permission request
         ActivityCompat.requestPermissions(Speech.this, new String[]{RECORD_AUDIO, INTERNET}, requestCode);
+        mStore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
     }
 
     public void onSpeechButtonClicked(View v) {
@@ -72,10 +87,51 @@ public class Speech extends AppCompatActivity {
                     for (int i = 0 ; i < ingredients.size() ; i++) {
                         ingredients.set(i, ingredients.get(i).substring(1, ingredients.get(i).length()-1)); //deletes first and last char
                         ingredients.set(i, ingredients.get(i).replace(",",""));
-                        ingredients.set(i, ingredients.get(i).replace(" ","+"));
+//                        ingredients.set(i, ingredients.get(i).replace(" ","+"));
                         Log.i("ingredient:", ingredients.get(i));
                     }
                 }
+
+                mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
+                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot snapshot = task.getResult();
+                                    Map<String, Long> myFridge = (Map<String,Long>) snapshot.get("Inventory");
+
+                                    mStore.collection("Food").document("Food")
+                                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            DocumentSnapshot currentItemsSnapshot = task.getResult();
+                                            Map<String, Long> currentItems = (Map<String, Long>) currentItemsSnapshot.get("MyFridge");
+
+                                            for(String ingredient: ingredients){
+                                                Log.i("ingredient", ingredient);
+                                                if(!currentItems.containsKey(ingredient)){
+                                                    myFridge.put(ingredient, new Long(-1));
+                                                }else{
+                                                    myFridge.put(ingredient, currentItems.get(ingredient));
+                                                }
+                                            }
+
+                                            mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
+                                                    .update("Inventory", myFridge);
+                                        }
+                                    });
+
+                                }
+                                else{
+                                    Log.i("failed", "failed");
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
 
             }
             else {

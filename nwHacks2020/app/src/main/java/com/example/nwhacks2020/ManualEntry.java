@@ -64,7 +64,7 @@ public class ManualEntry extends AppCompatActivity {
     }
 
     private void goBackToLastScreen(){
-        
+
     }
 
 

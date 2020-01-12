@@ -27,6 +27,7 @@ import java.util.Map;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -123,12 +124,16 @@ public class LoginPage extends AppCompatActivity {
         Map<String, String> userInfo = new HashMap<>();
         userInfo.put("Name", userName);
         userInfo.put("Email", userEmail);
-        userInfo.put("Inventory", userEmail);
+
+        Map<String, Map<String, Integer>> userInfo2 = new HashMap<>();
+        userInfo2.put("Inventory", new HashMap<String, Integer>());
+
         ddb.collection("Users").document(userName).set(userInfo);
+        ddb.collection("Users").document(userName).set(userInfo2, SetOptions.merge());
 
 //        Map<String, List<String>> inventoryInfo = new HashMap<>();
 //        inventoryInfo.put(userEmail, new ArrayList<String>());
-        ddb.collection("Inventory").add(new ArrayList<String>());
+//        ddb.collection("Inventory").add(new ArrayList<String>());
 
 
     }
