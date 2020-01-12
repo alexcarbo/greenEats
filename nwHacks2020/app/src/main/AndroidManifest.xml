@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nwhacks2020">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".BuyFood"></activity>
+        <activity android:name=".Camera"></activity>
+        <activity android:name=".Speech"/>
         <activity android:name=".AddFood" />
         <activity android:name=".Inventory" />
         <activity android:name=".MainMenu" />
