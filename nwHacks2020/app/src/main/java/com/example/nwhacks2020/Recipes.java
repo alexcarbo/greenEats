@@ -23,7 +23,8 @@ public class Recipes extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return inventory.size();
+            return 0;
+//            return inventory.size();
         }
 
         @Override

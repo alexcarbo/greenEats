@@ -97,7 +97,7 @@ public class TextAnalyzer{
                                     Log.i("ITEM", item);
                                 }
 
-                                //SEND TO MY FRIDGE
+                                //SEND ITEMS TO MY FRIDGE
 
 
                             }
