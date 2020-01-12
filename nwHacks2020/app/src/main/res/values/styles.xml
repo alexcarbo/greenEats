@@ -13,16 +13,21 @@
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/green</item>
         <item name="colorAccent">@color/green</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:toolbarStyle">@style/ToolBarStyle</item>
     </style>
 
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+
         <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
     <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
@@ -37,5 +42,12 @@
 
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
 
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="borderlessButtonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
     </style>
 </resources>

@@ -18,9 +18,7 @@
         <activity android:name=".Camera" />
         <activity android:name=".Speech" />
         <activity android:name=".Recipes" />
-
-        <activity android:name=".ManualEntry"></activity>
-
+        <activity android:name=".ManualEntry"/>
         <activity android:name=".AddFood" />
         <activity android:name=".Inventory" />
         <activity android:name=".MainMenu" />

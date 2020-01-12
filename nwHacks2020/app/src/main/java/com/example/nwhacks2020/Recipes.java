@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +37,7 @@ import org.json.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -135,8 +143,10 @@ public class Recipes extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Log.i("Response is: ", response.substring(0,500));
-                        jstring = response;
+                        //Log.i("Response is: ", response.substring(0,500))
+                        jstring = response.trim().substring(1,response.length()-1);
+                        jstring = StringEscapeUtils.unescapeJava(jstring);
+                        Log.i("STRING", jstring);
 
 //                        String[] data = response.split("next");
 //                        List<String> recipies = new ArrayList<>(Arrays.asList(data));
@@ -152,12 +162,30 @@ public class Recipes extends AppCompatActivity {
 
 
 //                        try {
+
 //
-//                            Gson gson = new Gson();
-//
-//                            Object ob = gson.fromJson(jstring, Recipe.class);
-//
-//                            Recipe r = (Recipe) ob;
+                            Gson gson = new Gson();
+
+//                        JsonReader reader = new JsonReader(new StringReader(jstring));
+//                        reader.setLenient(true);
+
+
+                        JsonObject jsonObject = new JsonParser().parse(jstring).getAsJsonObject();
+
+                        JsonArray array = jsonObject.getAsJsonArray("results");
+
+                        for (JsonElement result: array){
+                            JsonObject resultObject = result.getAsJsonObject();
+                            String title = resultObject.get("title").getAsString();
+                            String url = resultObject.get("href").getAsString();
+                            Log.i("TITLE", title);
+                        }
+
+                            //Object ob = gson.fromJson(input, MyObject.class);
+
+                            //MyObject o = (MyObject) ob;
+
+                            //Log.i("urls", o.getResults().get(0).href);
 //
 //                            JSONObject jobj = new JSONObject(jstring);
 //
@@ -230,36 +258,103 @@ public class Recipes extends AppCompatActivity {
 
     }
 
-    private class Recipe{
-        private String title;
-        private String url;
+    public class MyObject{
+        //List<Recipe> results;
+        String title;
+        String version;
+        String href;
+
+        MyObject(){
+
+        }
+        MyObject(List<Recipe> r, String t, String v, String h){
+            //results = r;
+            title = t;
+            version = v;
+            href = h;
+        }
+
+//        public void setResults(List<Recipe> results) {
+//            this.results = results;
+//        }
+//
+//        public List<Recipe> getResults() {
+//            return results;
+//        }
+
+        public void setHref(String href) {
+            this.href = href;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setVersion(String version) {
+            this.version = version;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getHref() {
+            return href;
+        }
+
+        public String getVersion() {
+            return version;
+        }
+    }
+
+    public class Recipe{
+        String title;
+        String href;
+        String ingredients;
+        String thumbnail;
 
         Recipe(){
-            super();
+
         }
 
-        Recipe(String title, String url){
-            super();
-            this.title = title;
-            this.url = url;
-        }
-
-        public String getTitle(){
-            return this.title;
-        }
-
-        public String getURL(){
-            return this.url;
-        }
-
-        public void setTitle(String t){
+        Recipe(String t, String url, String i, String thumb){
             title = t;
+            href = url;
+            ingredients = i;
+            thumbnail = thumb;
         }
 
-        public void setURL(String u){
-            url = u;
+        public void setTitle(String title) {
+            this.title = title;
         }
 
+        public void setHref(String href) {
+            this.href = href;
+        }
+
+        public String getHref() {
+            return href;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getIngredients() {
+            return ingredients;
+        }
+
+        public String getThumbnail() {
+            return thumbnail;
+        }
+
+        public void setIngredients(String ingredients) {
+            this.ingredients = ingredients;
+        }
+
+        public void setThumbnail(String thumbnail) {
+            this.thumbnail = thumbnail;
+        }
     }
 
 
