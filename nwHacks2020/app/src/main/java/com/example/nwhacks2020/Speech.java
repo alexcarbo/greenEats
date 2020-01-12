@@ -56,7 +56,7 @@ public class Speech extends AppCompatActivity {
             if (result.getReason() == ResultReason.RecognizedSpeech) {
                 txt.setText(result.toString());
 //                Log.i("result", result.toString());
-                String str = parseIngedients(result.toString());
+                //String str = parseIngedients(result.toString());
             }
             else {
                 txt.setText("Error recognizing. Did you update the subscription info?" + System.lineSeparator() + result.toString());
@@ -69,7 +69,5 @@ public class Speech extends AppCompatActivity {
         }
     }
 
-    public String parseIngedients(String str) {
-        
-    }
+
 }
