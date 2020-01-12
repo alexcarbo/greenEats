@@ -36,14 +36,6 @@ public class RecipeRecommender extends AppCompatActivity {
         editText = (EditText) findViewById(R.id.editText);
     }
 
-    public void activateStringGetter(View view){
-        String text = editText.getText().toString();
-        try {
-            getJSONstring(text);
-        }catch(Exception e){
-            Log.i("Failed", "uhhhhhhh");
-        }
-    }
 
     public void getJSONstring(String ingredients) throws IOException {
         String url = "https://sarvan13.api.stdlib.com/nwhacks@dev/foodrec/?ingredients=" + ingredients;

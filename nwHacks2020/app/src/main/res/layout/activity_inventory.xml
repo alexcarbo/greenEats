@@ -6,6 +6,31 @@
     tools:context=".Inventory">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+        <ListView
+            android:id="@+id/inventorylistview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5">
+
+        </ListView>
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/recommendrecipes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recommend Recipes"
+            android:layout_weight="1"
+            android:onClick="activateStringGetter"
+            />
+    </LinearLayout>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/inventorytoolbar"
         android:layout_width="match_parent"
@@ -30,11 +55,4 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-
-    <ListView
-        android:id="@+id/inventorylistview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/inventorytoolbar"
-        />
 </RelativeLayout>

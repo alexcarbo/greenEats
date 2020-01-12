@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory extends AppCompatActivity {
 
@@ -35,6 +37,8 @@ public class Inventory extends AppCompatActivity {
     ArrayList<String> inventory;
     CustomAdapter adapter;
     Toolbar toolbar;
+    List<String> items;
+    Button recommendRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class Inventory extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.inventorylistview);
         mAuth = FirebaseAuth.getInstance();
 
+        items = new ArrayList<>();
+        recommendRecipes = (Button) findViewById(R.id.recommendrecipes);
        DocumentReference docRef =mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName());
        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
            @Override
@@ -65,6 +71,16 @@ public class Inventory extends AppCompatActivity {
                         listView.setVisibility(View.GONE);
                     }
                 }
+
+                recommendRecipes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String totalItems;
+                        for(String item: items){
+
+                        }
+                    }
+                });
            }
        });
 
@@ -74,6 +90,16 @@ public class Inventory extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), AddFood.class);
         startActivity(intent);
     }
+
+    public void activateStringGetter(View view){
+//        String text = editText.getText().toString();
+//        try {
+//            getJSONstring(text);
+//        }catch(Exception e){
+//            Log.i("Failed", "uhhhhhhh");
+//        }
+    }
+
 
     private class CustomAdapter extends BaseAdapter {
 
@@ -101,6 +127,7 @@ public class Inventory extends AppCompatActivity {
                 viewHolder = new ViewHolder();
                 viewHolder.editButton = (ImageView) view.findViewById(R.id.edit);
                 viewHolder.deleteButton = (ImageView) view.findViewById(R.id.delete);
+                viewHolder.checkBox = (CheckBox) view.findViewById((R.id.checkbox));
                 view.setTag(viewHolder);
             }else{
                 viewHolder = (ViewHolder) view.getTag();
@@ -126,6 +153,20 @@ public class Inventory extends AppCompatActivity {
                 }
             });
 
+            viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(viewHolder.checkBox.isChecked()){
+                        viewHolder.checkBox.setChecked(false);
+                        items.remove(inventory.get(i));
+                    }else{
+                        viewHolder.checkBox.setChecked(true);
+                        items.add(inventory.get(i));
+                    }
+                }
+            });
+
+
 
             //imageView.setImageResource(IMAGES[i]);
 
@@ -136,6 +177,7 @@ public class Inventory extends AppCompatActivity {
         private class ViewHolder{
             public ImageView editButton;
             public ImageView deleteButton;
+            public CheckBox checkBox;
 
         }
     }
