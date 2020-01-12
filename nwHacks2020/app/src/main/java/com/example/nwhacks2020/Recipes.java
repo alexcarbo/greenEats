@@ -162,5 +162,4 @@ public class Recipes extends AppCompatActivity {
 
 
     }
->>>>>>> 6f33955103c2c0d677e17a61b127086eddad1d9d
 }

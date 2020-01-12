@@ -109,12 +109,13 @@ public class Speech extends AppCompatActivity {
 
                                             for(String ingredient: ingredients){
                                                 Log.i("ingredient", ingredient);
-                                                if(currentItems.get("Apple") == NULL){
+                                                if(!currentItems.containsKey(ingredient)){
                                                     myFridge.put(ingredient, new Long(-1));
                                                 }else{
-                                                    myFridge.put(ingredient, currentItems.get("Apple"));
+                                                    myFridge.put(ingredient, currentItems.get(ingredient));
                                                 }
                                             }
+
                                             mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
                                                     .update("Inventory", myFridge);
                                         }
