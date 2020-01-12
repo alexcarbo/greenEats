@@ -11,11 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".Camera"></activity>
-=======
-        <activity android:name=".Speech"/>
->>>>>>> e62e8a37f1cfe00165a3656ee685e4020ae08ed0
+        <activity android:name=".TextAnalyzer"></activity>
+        <activity android:name=".Camera" />
+        <activity android:name=".Speech" />
         <activity android:name=".BuyFood" />
         <activity android:name=".AddFood" />
         <activity android:name=".Inventory" />
@@ -28,6 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr" />
     </application>
 
 </manifest>
