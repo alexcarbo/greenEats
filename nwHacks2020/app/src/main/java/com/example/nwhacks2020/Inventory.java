@@ -1,10 +1,12 @@
 package com.example.nwhacks2020;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -18,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,6 +39,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,6 +60,8 @@ public class Inventory extends AppCompatActivity {
     Button recommendRecipes;
     public SharedPreferences itemSharedPreferences;
     String jsonRecipes;
+    AlertDialog.Builder builder;
+    ArrayList<Boolean> checkedOrNot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,8 @@ public class Inventory extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
 
         mStore =FirebaseFirestore.getInstance();
         listView = (ListView) findViewById(R.id.inventorylistview);
@@ -82,6 +90,10 @@ public class Inventory extends AppCompatActivity {
                 if(snapshot.exists()){
                     inventory = (HashMap<String,Number>) snapshot.get("Inventory");
                     foodItemNames = new ArrayList<>(inventory.keySet());
+                    checkedOrNot = new ArrayList<>();
+                    for(String name: foodItemNames){
+                        checkedOrNot.add(false);
+                    }
                     adapter = new CustomAdapter();
                     listView.setAdapter(adapter);
                     if(inventory.size() == 0){
@@ -160,16 +172,24 @@ public class Inventory extends AppCompatActivity {
             }else{
                 viewHolder = (ViewHolder) view.getTag();
             }
-
+            viewHolder.editButton.setImageResource(R.drawable.ic_edit_black_24dp);
+            viewHolder.deleteButton.setImageResource(R.drawable.ic_delete_black_24dp);
             TextView food = (TextView) view.findViewById(R.id.foodItem);
 
             food.setText(foodItemNames.get(index));
+
+//            if(checkedOrNot.get(i)){
+//                viewHolder.checkBox.setChecked(true);
+//            }else{
+//                viewHolder.checkBox.setChecked(false);
+//            }
 
 
             viewHolder.editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(getApplicationContext(), ManualEntry.class);
+                    startActivity(intent);
                 }
             });
 
@@ -177,17 +197,55 @@ public class Inventory extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
+                            //Setting message manually and performing action on button click
+                            builder.setMessage("Do you want to delete this entry ?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
+                                                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful()){
+                                                        DocumentSnapshot snapshot = task.getResult();
+                                                        Map<String, Long> foodEntries = (Map<String, Long>) snapshot.get("Inventory");
+                                                        foodEntries.remove(foodItemNames.get(i));
+                                                        mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
+                                                                .update("Inventory", foodEntries);
 
-                }
-            });
+                                                    }
+                                                }
+                                            });
+                                            Toast.makeText(getApplicationContext(),"Successful",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            //  Action for 'NO' Button
+                                            dialog.cancel();
+                                            Toast.makeText(getApplicationContext(),"Failed",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                            //Creating dialog box
+                            AlertDialog alert = builder.create();
+                            //Setting the title manually
+                            alert.setTitle("AlertDialogExample");
+                            alert.show();
+                        }
+                    });
+
 
             viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(viewHolder.checkBox.isChecked()){
+                    if(checkedOrNot.get(i)){
+                        checkedOrNot.set(i,false);
                         viewHolder.checkBox.setChecked(false);
-                        items.remove(inventory.get(i));
+                        items.remove(foodItemNames.get(i));
                     }else{
+                        checkedOrNot.set(i, true);
                         viewHolder.checkBox.setChecked(true);
                         items.add(foodItemNames.get(i));
                     }
