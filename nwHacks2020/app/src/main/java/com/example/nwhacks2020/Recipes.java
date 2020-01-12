@@ -3,14 +3,17 @@ package com.example.nwhacks2020;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -209,6 +212,14 @@ public class Recipes extends AppCompatActivity {
 
                         adapter = new CustomAdapter();
                         recipes.setAdapter(adapter);
+                        recipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Uri uri = Uri.parse(recipeURLs.get(i));
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                startActivity(intent);
+                            }
+                        });
 
                     }
                 }, new Response.ErrorListener() {
@@ -246,26 +257,18 @@ public class Recipes extends AppCompatActivity {
         public View getView(int i, View view, ViewGroup viewGroup) {
             final int index = i;
 
-            final CustomAdapter.ViewHolder viewHolder;
-            if(view == null) {
-                view = getLayoutInflater().inflate(R.layout.layout_recipes, null);
-                viewHolder = new CustomAdapter.ViewHolder();
-                viewHolder.recipe = (TextView) view.findViewById(R.id.recipe);
-                view.setTag(viewHolder);
-            }else{
-                viewHolder = (CustomAdapter.ViewHolder) view.getTag();
+            if(view == null){
+
+                LayoutInflater mInflater = (LayoutInflater) getApplicationContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                view = mInflater.inflate(R.layout.layout_recipes, null);
+
+                TextView recipe = (TextView) view.findViewById(R.id.recipe);
+                recipe.setText(titles.get(i));
+
             }
 
-            viewHolder.recipe.setText(titles.get(i));
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Uri uri = Uri.parse(recipeURLs.get(i));
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
-                }
-            });
+
 
 
 
@@ -276,10 +279,7 @@ public class Recipes extends AppCompatActivity {
         }
 
 
-        private class ViewHolder{
-            public TextView recipe;
 
-        }
 
 
     }
