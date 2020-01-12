@@ -109,9 +109,9 @@ public class Inventory extends AppCompatActivity {
 
                         Intent intent = new Intent(getApplicationContext(), Recipes.class);
                         itemSharedPreferences = getSharedPreferences("com.mendozae.teamflickr", Context.MODE_PRIVATE);
-                        itemSharedPreferences.edit().putString("item", totalItems).apply();
+                        itemSharedPreferences.edit().putString("item", totalItems.toString()).apply();
                         startActivity(intent);
->>>>>>> 6f33955103c2c0d677e17a61b127086eddad1d9d
+
                     }
                 });
            }
