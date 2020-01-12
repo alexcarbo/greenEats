@@ -44,7 +44,7 @@ public class Recipes extends AppCompatActivity {
         recipes = (ListView) findViewById(R.id.recipes);
         adapter = new CustomAdapter();
         recipes.setAdapter(adapter);
-        String totalItems = getSharedPreferences("com.example.nwhacks2020", Context.MODE_PRIVATE).getString("item", "Default");
+        String totalItems = getSharedPreferences("com.example.nwhacks2020", Context.MODE_PRIVATE).getString("item", "cheese,egg");
 
         try {
             getJSONstring(totalItems);

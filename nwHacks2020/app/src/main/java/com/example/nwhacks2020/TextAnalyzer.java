@@ -9,11 +9,14 @@ import android.graphics.Rect;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.google.android.gms.common.util.NumberUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
@@ -95,9 +98,20 @@ public class TextAnalyzer{
 
                                 for(String item : items) {
                                     Log.i("ITEM", item);
+                                    item = item.toLowerCase();
                                 }
 
-                                //SEND ITEMS TO MY FRIDGE
+                                FirebaseFirestore mStore;
+                                FirebaseAuth mAuth;
+
+
+                                mStore = FirebaseFirestore.getInstance();
+                                mAuth = FirebaseAuth.getInstance();
+
+                                MyFridgeUpdater updater = new MyFridgeUpdater();
+                                updater.updateMyFridge(mStore, mAuth, items);
+
+
 
 
                             }

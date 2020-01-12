@@ -7,7 +7,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,16 +14,16 @@ import android.util.Log
 import android.util.Size
 import android.view.Surface
 import android.view.TextureView
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import java.io.IOException
@@ -200,6 +199,15 @@ class Camera : AppCompatActivity(), LifecycleOwner {
                                 Log.i("ITEM", item)
                             }
                             //SEND ITEMS TO MY FRIDGE
+                            val mStore: FirebaseFirestore
+                            val mAuth: FirebaseAuth
+
+
+                            mStore = FirebaseFirestore.getInstance()
+                            mAuth = FirebaseAuth.getInstance()
+
+                            val updater = MyFridgeUpdater()
+                            updater.updateMyFridge(mStore, mAuth, items)
                         }
                         .addOnFailureListener {
                             // Task failed with an exception
