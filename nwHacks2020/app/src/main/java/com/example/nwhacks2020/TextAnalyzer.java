@@ -88,7 +88,7 @@ public class TextAnalyzer{
                                     if(str.contains("*") && str.contains("--")) {
                                         flag = false;
                                     }
-                                    if(flag && !str.contains(".") && !str.contains("ORDERED") && !str.contains("Total") ) {
+                                    if(flag && !str.contains(".") && !str.contains("ORDERED") && !str.contains("Total") && !str.contains("$")) {
                                        items.add(str);
                                     }
                                     if("amount".equals(str.toLowerCase())) {
@@ -101,15 +101,9 @@ public class TextAnalyzer{
                                     item = item.toLowerCase();
                                 }
 
-                                FirebaseFirestore mStore;
-                                FirebaseAuth mAuth;
-
-
-                                mStore = FirebaseFirestore.getInstance();
-                                mAuth = FirebaseAuth.getInstance();
 
                                 MyFridgeUpdater updater = new MyFridgeUpdater();
-                                updater.updateMyFridge(mStore, mAuth, items);
+                                updater.updateMyFridge(items);
 
 
 
