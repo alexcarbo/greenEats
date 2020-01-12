@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nwhacks2020.R;
@@ -43,6 +46,7 @@ public class Speech extends AppCompatActivity {
     FirebaseAuth mAuth;
 
     Toolbar toolbar;
+    Button speech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class Speech extends AppCompatActivity {
         setContentView(R.layout.activity_speech);
 
         toolbar =  findViewById(R.id.inventorytoolbar);
+        speech = (Button) findViewById(R.id.button);
         toolbar.setTitle("Voice Entry");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,6 +65,7 @@ public class Speech extends AppCompatActivity {
         ActivityCompat.requestPermissions(Speech.this, new String[]{RECORD_AUDIO, INTERNET}, requestCode);
         mStore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+
     }
 
     @Override
@@ -69,9 +75,26 @@ public class Speech extends AppCompatActivity {
     }
 
     public void onSpeechButtonClicked(View v) {
+        ImageView ear = (ImageView) this.findViewById(R.id.ear);
+
         TextView txt = (TextView) this.findViewById(R.id.hello); // 'hello' is the ID of your text view
         TextView examples = (TextView) this.findViewById(R.id.hello2);
 
+        if(ear.getVisibility()==View.VISIBLE){
+            txt.setVisibility(View.VISIBLE);
+            examples.setVisibility(View.VISIBLE);
+            toolbar.setVisibility(View.VISIBLE);
+            speech.setVisibility(View.VISIBLE);
+            ear.setVisibility(View.VISIBLE);
+        }else{
+            txt.setVisibility(View.VISIBLE);
+            examples.setVisibility(View.VISIBLE);
+            toolbar.setVisibility(View.VISIBLE);
+            speech.setVisibility(View.VISIBLE);
+            ear.setVisibility(View.VISIBLE);
+        }
+        ear.bringToFront();
+        ear.setImageResource(R.drawable.ic_hearing_grey_24dp);
         try {
             SpeechConfig config = SpeechConfig.fromSubscription(speechSubscriptionKey, serviceRegion);
             assert(config != null);
@@ -115,6 +138,7 @@ public class Speech extends AppCompatActivity {
                 strDisplay.setLength(strDisplay.length()-2);
 
                 examples.setVisibility(View.GONE);
+                ear.setVisibility(View.GONE);
                 txt.setText("Your inputted ingredients: " + strDisplay.toString());
 
                 mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
