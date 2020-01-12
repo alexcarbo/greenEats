@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToLogin(View view){
-        Intent intent = new Intent(getApplicationContext(), Speech.class);
+        Intent intent = new Intent(getApplicationContext(), LoginPage.class);
         startActivity(intent);
     }
 
