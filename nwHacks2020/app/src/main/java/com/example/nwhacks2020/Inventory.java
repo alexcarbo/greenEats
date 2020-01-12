@@ -62,6 +62,7 @@ public class Inventory extends AppCompatActivity {
     String jsonRecipes;
     AlertDialog.Builder builder;
     ArrayList<Boolean> checkedOrNot;
+    public static String itemString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,8 @@ public class Inventory extends AppCompatActivity {
 
 
                         Intent intent = new Intent(getApplicationContext(), Recipes.class);
+                        Log.i("string", totalItems.toString());
+                        itemString = totalItems.toString();
                         itemSharedPreferences = getSharedPreferences("com.mendozae.teamflickr", Context.MODE_PRIVATE);
                         itemSharedPreferences.edit().putString("item", totalItems.toString()).apply();
                         startActivity(intent);
@@ -168,6 +171,7 @@ public class Inventory extends AppCompatActivity {
                 viewHolder.editButton = (ImageView) view.findViewById(R.id.edit);
                 viewHolder.deleteButton = (ImageView) view.findViewById(R.id.delete);
                 viewHolder.checkBox = (CheckBox) view.findViewById((R.id.checkbox));
+
                 view.setTag(viewHolder);
             }else{
                 viewHolder = (ViewHolder) view.getTag();
@@ -175,9 +179,14 @@ public class Inventory extends AppCompatActivity {
             viewHolder.editButton.setImageResource(R.drawable.ic_edit_black_24dp);
             viewHolder.deleteButton.setImageResource(R.drawable.ic_delete_black_24dp);
             TextView food = (TextView) view.findViewById(R.id.foodItem);
+            TextView expiry = (TextView) view.findViewById(R.id.expirydate);
 
             food.setText(foodItemNames.get(index));
-
+            if(inventory.get(foodItemNames.get(i)).toString().equals("-1")){
+                expiry.setVisibility(View.GONE);
+            }else {
+                expiry.setText(expiry.getText().toString() + " " + inventory.get(foodItemNames.get(i)).toString() + " days");
+            }
 //            if(checkedOrNot.get(i)){
 //                viewHolder.checkBox.setChecked(true);
 //            }else{
