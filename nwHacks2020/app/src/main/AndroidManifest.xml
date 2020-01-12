@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ExpiringSoon"></activity>
         <activity android:name=".TextAnalyzer" />
         <activity android:name=".Camera" />
         <activity android:name=".Speech" />
