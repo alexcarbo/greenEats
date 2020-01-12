@@ -14,6 +14,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Name"
+        android:textColor="@color/black"
         />
 
     <EditText
@@ -23,7 +24,8 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:hint="Email Address"
-        android:layout_below="@id/name"/>
+        android:layout_below="@id/name"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/password"
@@ -32,7 +34,8 @@
         android:ems="10"
         android:inputType="textPassword"
         android:hint="Password"
-        android:layout_below="@id/email"/>
+        android:layout_below="@id/email"
+        android:textColor="@color/black"/>
 
     <Button
         style="@style/Widget.AppCompat.Button.Colored"

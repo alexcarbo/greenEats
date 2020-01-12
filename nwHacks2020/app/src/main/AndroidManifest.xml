@@ -11,14 +11,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity android:name=".TextAnalyzer" />
         <activity android:name=".Camera" />
         <activity android:name=".Speech" />
         <activity android:name=".Recipes" />
-        <activity android:name=".RecipeRecommender" />
-        <activity android:name=".BuyFood" />
+
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".ManualEntry"></activity>
+
         <activity android:name=".AddFood" />
         <activity android:name=".Inventory" />
         <activity android:name=".MainMenu" />
