@@ -40,7 +40,8 @@
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:layout_marginLeft="60dp"
-        android:layout_below="@id/password"/>
+        android:layout_below="@id/password"
+        android:onClick="authenticateUser"/>
 
     <TextView
         android:id="@+id/switcher"

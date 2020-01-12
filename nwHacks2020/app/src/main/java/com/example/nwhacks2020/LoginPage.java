@@ -101,7 +101,18 @@ public class LoginPage extends AppCompatActivity {
                         }
                     });
         }else{
-
+            mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(LoginPage.this, "Log in Successful", Toast.LENGTH_SHORT).show();
+                        updateUI(mAuth.getCurrentUser());
+                    } else {
+                        Toast.makeText(LoginPage.this, "Log in Unsuccessful", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            });
         }
     }
 
