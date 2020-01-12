@@ -62,6 +62,7 @@ public class Inventory extends AppCompatActivity {
     String jsonRecipes;
     AlertDialog.Builder builder;
     ArrayList<Boolean> checkedOrNot;
+    public static String itemString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,8 @@ public class Inventory extends AppCompatActivity {
 
 
                         Intent intent = new Intent(getApplicationContext(), Recipes.class);
+                        Log.i("string", totalItems.toString());
+                        itemString = totalItems.toString();
                         itemSharedPreferences = getSharedPreferences("com.mendozae.teamflickr", Context.MODE_PRIVATE);
                         itemSharedPreferences.edit().putString("item", totalItems.toString()).apply();
                         startActivity(intent);

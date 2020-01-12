@@ -16,6 +16,7 @@
         android:elevation="10dp"
         android:textColor="#FFFFFF"
         app:theme="@style/ToolBarStyle"
+        android:layout_alignParentTop="true"
         />
 
     <RelativeLayout
@@ -47,6 +48,17 @@
             android:textColor="#FFFFFF"
             android:layout_below="@id/hello2" />
 
+        <ImageView
+            android:id="@+id/ear"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/button"
+            android:layout_marginLeft="136dp"
+            android:src="@drawable/ic_hearing_grey_24dp"
+            />
+
+
     </RelativeLayout>
+
 
 </RelativeLayout>
