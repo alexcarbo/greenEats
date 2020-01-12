@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class Recipes extends AppCompatActivity {
     CustomAdapter adapter;
     Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +67,9 @@ public class Recipes extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         recipes = (ListView) findViewById(R.id.recipes);
-        adapter = new CustomAdapter();
-        recipes.setAdapter(adapter);
-        String totalItems = getSharedPreferences("com.example.nwhacks2020", Context.MODE_PRIVATE).getString("item", "cheese,egg");
 
+        String totalItems = getSharedPreferences("com.example.nwhacks2020", Context.MODE_PRIVATE).getString("item", "mam");
+        totalItems = Inventory.itemString;
 
             Log.i("BEFORE", totalItems);
             getJSONstring(totalItems);
@@ -178,6 +179,9 @@ public class Recipes extends AppCompatActivity {
                             JsonObject resultObject = result.getAsJsonObject();
                             String title = resultObject.get("title").getAsString();
                             String url = resultObject.get("href").getAsString();
+
+                            titles.add(title);
+                            recipeURLs.add(url);
                             Log.i("TITLE", title);
                         }
 
@@ -203,6 +207,8 @@ public class Recipes extends AppCompatActivity {
 //                            e.printStackTrace();
 //                        }
 
+                        adapter = new CustomAdapter();
+                        recipes.setAdapter(adapter);
 
                     }
                 }, new Response.ErrorListener() {
@@ -240,6 +246,18 @@ public class Recipes extends AppCompatActivity {
         public View getView(int i, View view, ViewGroup viewGroup) {
             final int index = i;
 
+            final CustomAdapter.ViewHolder viewHolder;
+            if(view == null) {
+                view = getLayoutInflater().inflate(R.layout.layout_recipes, null);
+                viewHolder = new CustomAdapter.ViewHolder();
+                viewHolder.recipe = (TextView) view.findViewById(R.id.recipe);
+                view.setTag(viewHolder);
+            }else{
+                viewHolder = (CustomAdapter.ViewHolder) view.getTag();
+            }
+
+            viewHolder.recipe.setText(titles.get(i));
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -249,10 +267,18 @@ public class Recipes extends AppCompatActivity {
                 }
             });
 
+
+
             //imageView.setImageResource(IMAGES[i]);
 
             // textView_desc.setText(DESCRIPTIONS[i]);
             return view;
+        }
+
+
+        private class ViewHolder{
+            public TextView recipe;
+
         }
 
 
