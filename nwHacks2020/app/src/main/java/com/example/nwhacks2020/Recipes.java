@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,9 +26,15 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 public class Recipes extends AppCompatActivity {
 
@@ -52,30 +59,38 @@ public class Recipes extends AppCompatActivity {
         recipes = (ListView) findViewById(R.id.recipes);
         adapter = new CustomAdapter();
         recipes.setAdapter(adapter);
-        String totalItems = getSharedPreferences("com.example.nwhacks2020", Context.MODE_PRIVATE).getString("item", "Default");
+        String totalItems = getSharedPreferences("com.example.nwhacks2020", Context.MODE_PRIVATE).getString("item", "cheese,egg");
 
-        try {
+
+            Log.i("BEFORE", totalItems);
             getJSONstring(totalItems);
-            JSONObject jobj = new JSONObject(totalItems);
 
-            JSONArray jrecipes =  jobj.getJSONArray("recipes");
+            Log.i("AFTER", jstring + " hello");
 
-            for (int i = 0; i < jrecipes.length(); i++){
-                JSONObject recipe = (JSONObject)jrecipes.get(i);
-                titles.add((String)recipe.get("title"));
-                recipeURLs.add((String)recipe.get("href"));
-            }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
 
-    }
+//            JSONObject jobj = new JSONObject(jstring);
+//
+//            JSONArray jrecipes =  jobj.getJSONArray("recipes");
+//
+//            Log.i("lol", "HELLLLLLOOOOOOOOOOOO");
+//
+//            for (int i = 0; i < 3; i++){
+//                JSONObject recipe = (JSONObject)jrecipes.get(i);
+//                titles.add((String)recipe.get("title"));
+//                recipeURLs.add((String)recipe.get("href"));
+//            }
+
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+   }
 
     @Override
     public boolean onSupportNavigateUp(){
         onBackPressed();
         return true;
+
     }
 
     public void getJSONstring(String ingredients) {
@@ -123,13 +138,52 @@ public class Recipes extends AppCompatActivity {
                         Log.i("Response is: ", response.substring(0,500));
                         jstring = response;
 
+//                        String[] data = response.split("next");
+//                        List<String> recipies = new ArrayList<>(Arrays.asList(data));
+//                        if (recipies.size() > 1) recipies.remove(0);
+//
+//                        for (int i = 0; i < recipies.size(); i++){
+//                            String[] set = recipies.get(i).split(url);
+//                            titles.add(set[0]);
+//                            recipeURLs.add(set[1]);
+//                        }
+//
+//                        Log.i("HELLLO", titles.get(1));
+
+
+//                        try {
+//
+//                            Gson gson = new Gson();
+//
+//                            Object ob = gson.fromJson(jstring, Recipe.class);
+//
+//                            Recipe r = (Recipe) ob;
+//
+//                            JSONObject jobj = new JSONObject(jstring);
+//
+//                            JSONArray jrecipes =  jobj.getJSONArray("recipes");
+//
+//                            Log.i("lol", "HELLLLLLOOOOOOOOOOOO");
+//
+//                            for (int i = 0; i < 3; i++){
+//                                JSONObject recipe = (JSONObject)jrecipes.get(i);
+//                                titles.add((String)recipe.get("title"));
+//                                recipeURLs.add((String)recipe.get("href"));
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.i("ERROR", error.toString());
             }
         });
+
 
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
@@ -175,4 +229,38 @@ public class Recipes extends AppCompatActivity {
 
 
     }
+
+    private class Recipe{
+        private String title;
+        private String url;
+
+        Recipe(){
+            super();
+        }
+
+        Recipe(String title, String url){
+            super();
+            this.title = title;
+            this.url = url;
+        }
+
+        public String getTitle(){
+            return this.title;
+        }
+
+        public String getURL(){
+            return this.url;
+        }
+
+        public void setTitle(String t){
+            title = t;
+        }
+
+        public void setURL(String u){
+            url = u;
+        }
+
+    }
+
+
 }

@@ -22,6 +22,7 @@ allprojects {
         google()
         jcenter()
         maven {url 'https://csspeechstorage.blob.core.windows.net/maven/'}
+        maven {url 'https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple/1.1.1'}
     }
 }
 

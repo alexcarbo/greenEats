@@ -2,16 +2,18 @@ package com.example.nwhacks2020
 
 // Your IDE likely can auto-import these classes, but there are several
 // different implementations so we list them here to disambiguate.
+
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Matrix
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.util.Size
 import android.view.Surface
 import android.view.TextureView
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
@@ -20,13 +22,20 @@ import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import java.io.File
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import java.io.IOException
+import java.util.*
 import java.util.concurrent.Executors
+
 
 // This is an arbitrary number we are using to keep track of the permission
 // request. Where an app has multiple context for requesting permission,
 // this can help differentiate the different contexts.
 private const val REQUEST_CODE_PERMISSIONS = 10
+private const val RESULT_LOAD_IMAGE = 1
 
 // This is an array of all the permission specified in the manifest.
 private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
@@ -41,6 +50,15 @@ class Camera : AppCompatActivity(), LifecycleOwner {
 
         viewFinder = findViewById(R.id.view_finder)
 
+        val buttonLoadImage = findViewById<ImageButton>(R.id.upload_button)
+        buttonLoadImage.setOnClickListener {
+            val i = Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            Log.i("tag", "ur it")
+            startActivityForResult(i, RESULT_LOAD_IMAGE )
+        }
+
         // Request camera permissions
         if (allPermissionsGranted()) {
             viewFinder.post { startCamera() }
@@ -48,6 +66,8 @@ class Camera : AppCompatActivity(), LifecycleOwner {
             ActivityCompat.requestPermissions(
                     this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
+
+
 
         // Every time the provided texture view changes, recompute layout
         viewFinder.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
@@ -121,6 +141,18 @@ class Camera : AppCompatActivity(), LifecycleOwner {
                     }
                 }
             })
+
+
+        }
+
+        findViewById<ImageButton>(R.id.upload_button).setOnClickListener {
+            val i = Intent(
+                    Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+
+            startActivityForResult(i, RESULT_LOAD_IMAGE )
+
+
+
         }
 
         // Bind use cases to lifecycle
@@ -129,6 +161,65 @@ class Camera : AppCompatActivity(), LifecycleOwner {
         // version 1.1.0 or higher.
         CameraX.bindToLifecycle(this, preview, imageCapture)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
+            Log.i("log works", "k")
+            val selectedImage = data.data
+            val image: FirebaseVisionImage
+            try {
+                image = FirebaseVisionImage.fromFilePath(this, selectedImage)
+                //on device model
+                val detector = FirebaseVision.getInstance()
+                        .onDeviceTextRecognizer
+                //pass image to be processed
+                val result = detector.processImage(image)
+                        .addOnSuccessListener { firebaseVisionText ->
+                            // Task completed successfully
+                            // ...
+                            val allText = firebaseVisionText.text
+                            val newAllText = allText.replace('\n', ',')
+                            val possible = newAllText.split(",").toTypedArray()
+                            val possibleStrings: List<String> = ArrayList(Arrays.asList(*possible))
+                            val items: MutableList<String> = ArrayList()
+                            var flag = false
+                            for (str in possibleStrings) {
+                                if (str.contains("*")) {
+                                    flag = false
+                                }
+                                if (flag && !str.contains(".") && !str.contains("ORDERED")) {
+                                    items.add(str)
+                                }
+                                if (str == "AMOUNT") {
+                                    flag = true
+                                }
+                            }
+                            for (item in items) {
+                                Log.i("ITEM", item)
+                            }
+                            //SEND ITEMS TO MY FRIDGE
+                            val mStore: FirebaseFirestore
+                            val mAuth: FirebaseAuth
+
+
+                            mStore = FirebaseFirestore.getInstance()
+                            mAuth = FirebaseAuth.getInstance()
+
+                            val updater = MyFridgeUpdater()
+                            updater.updateMyFridge(mStore, mAuth, items)
+                        }
+                        .addOnFailureListener {
+                            // Task failed with an exception
+                            // ...
+                        }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+
 
     private fun updateTransform() {
         val matrix = Matrix()

@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Speech">
+    tools:context=".Speech"
+    android:gravity="center">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/inventorytoolbar"
+        android:id="@+id/manualentrytoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
@@ -21,25 +22,28 @@
         android:gravity="center">
 
         <TextView
-        android:id="@+id/hello"
-        android:layout_width="366dp"
-        android:layout_height="295dp"
-        android:text="Hello World!"
-        />
-
+            android:id="@+id/hello"
+            android:layout_width="366dp"
+            android:layout_height="100dp"
+            android:text="Press button to add items by voice command."
+            android:gravity="center"/>
+        <!--        android:text="Please add items into your fridge by first pressing the button, then speaking - starting with the keyword add, followed by your groceries. " />-->
+        <TextView
+            android:id="@+id/hello2"
+            android:layout_width="366dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/hello"
+            android:text="Example: ''add apples, add flour, add milk.''"
+            android:gravity="center"/>
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:layout_width="366dp"
             android:layout_height="wrap_content"
             android:onClick="onSpeechButtonClicked"
-            android:text="Button"
-            android:layout_below="@id/hello" />
+            android:text="Speak now"
+            android:layout_below="@id/hello2" />
 
     </RelativeLayout>
-
-
-
-
 
 </RelativeLayout>

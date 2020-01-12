@@ -28,6 +28,7 @@ public class AddFood extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void goToManualEntry(View view){
         Intent intent = new Intent(getApplicationContext(), ManualEntry.class);
         startActivity(intent);
@@ -37,5 +38,10 @@ public class AddFood extends AppCompatActivity {
     public boolean onSupportNavigateUp(){
         onBackPressed();
         return true;
+    }
+
+    public void goToScanReceipt(View view){
+        Intent intent = new Intent(getApplicationContext(), Camera.class);
+        startActivity(intent);
     }
 }

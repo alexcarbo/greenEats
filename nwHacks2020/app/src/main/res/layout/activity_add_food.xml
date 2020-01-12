@@ -46,9 +46,11 @@
             android:layout_height="wrap_content"
             android:text="Scan"
             android:layout_below="@id/button2"
+            android:onClick="goToScanReceipt"
             />
 
     </RelativeLayout>
+
 
 
 
