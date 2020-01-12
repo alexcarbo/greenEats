@@ -210,6 +210,7 @@ public class Inventory extends AppCompatActivity {
             if(inventory.get(foodItemNames.get(i)).toString().equals("-1")){
                 expiry.setVisibility(View.GONE);
             }else {
+                expiry.setVisibility(View.VISIBLE);
                 String text = "Expiry Day in: " + inventory.get(foodItemNames.get(i)).toString() + " days";
                 expiry.setText(text);
             }
