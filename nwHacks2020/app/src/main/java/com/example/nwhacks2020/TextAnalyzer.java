@@ -85,13 +85,13 @@ public class TextAnalyzer{
 
                                 boolean flag = false;
                                 for(String str : possibleStrings) {
-                                    if(str.contains("*")) {
+                                    if(str.contains("*") && str.contains("--")) {
                                         flag = false;
                                     }
-                                    if(flag && !str.contains(".") && !str.contains("ORDERED")) {
+                                    if(flag && !str.contains(".") && !str.contains("ORDERED") && !str.contains("Total") ) {
                                        items.add(str);
                                     }
-                                    if(str.equals("AMOUNT")) {
+                                    if("amount".equals(str.toLowerCase())) {
                                         flag = true;
                                     }
                                 }
