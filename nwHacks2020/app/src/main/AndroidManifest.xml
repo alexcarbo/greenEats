@@ -13,11 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Recipes"></activity>
-        <activity android:name=".RecipeRecommender" />
-        <activity android:name=".BuyFood" />
+        <activity android:name=".TextAnalyzer"></activity>
         <activity android:name=".Camera" />
         <activity android:name=".Speech" />
+
+
+        <activity android:name=".Recipes"></activity>
+        <activity android:name=".RecipeRecommender" />
+
+        <activity android:name=".BuyFood" />
         <activity android:name=".AddFood" />
         <activity android:name=".Inventory" />
         <activity android:name=".MainMenu" />
@@ -29,6 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr" />
     </application>
 
 </manifest>

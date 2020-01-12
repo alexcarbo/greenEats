@@ -1,26 +1,27 @@
 package com.example.nwhacks2020
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 // Your IDE likely can auto-import these classes, but there are several
 // different implementations so we list them here to disambiguate.
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.util.Size
 import android.graphics.Matrix
+import android.os.Bundle
 import android.util.Log
+import android.util.Size
 import android.view.Surface
 import android.view.TextureView
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import java.io.File
 import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 // This is an arbitrary number we are using to keep track of the permission
 // request. Where an app has multiple context for requesting permission,
@@ -97,31 +98,29 @@ class Camera : AppCompatActivity(), LifecycleOwner {
         // Build the image capture use case and attach button click listener
         val imageCapture = ImageCapture(imageCaptureConfig)
         findViewById<ImageButton>(R.id.capture_button).setOnClickListener {
-            val file = File(externalMediaDirs.first(),
-                    "${System.currentTimeMillis()}.jpg")
+//            val file = File(externalMediaDirs.first(),
+//                    "${System.currentTimeMillis()}.jpg")
 
-            imageCapture.takePicture(file, executor,
-                    object : ImageCapture.OnImageSavedListener {
-                        override fun onError(
-                                imageCaptureError: ImageCapture.ImageCaptureError,
-                                message: String,
-                                exc: Throwable?
-                        ) {
-                            val msg = "Photo capture failed: $message"
-                            Log.e("CameraXApp", msg, exc)
-                            viewFinder.post {
-                                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-                            }
-                        }
 
-                        override fun onImageSaved(file: File) {
-                            val msg = "Photo capture succeeded: ${file.absolutePath}"
-                            Log.d("CameraXApp", msg)
-                            viewFinder.post {
-                                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    })
+            //start imported
+            imageCapture.takePicture(executor, object : ImageCapture.OnImageCapturedListener() {
+                override fun onCaptureSuccess(image : ImageProxy, rotationDegrees : Int) {
+                    val analyzer = TextAnalyzer()
+                    analyzer.analyze(image, rotationDegrees)
+                    image.close()
+                }
+                override fun onError(
+                        imageCaptureError: ImageCapture.ImageCaptureError,
+                        message: String,
+                        exc: Throwable?
+                ) {
+                    val msg = "Photo capture failed: $message"
+                    Log.e("CameraXApp", msg, exc)
+                    viewFinder.post {
+                        Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         }
 
         // Bind use cases to lifecycle
@@ -177,4 +176,5 @@ class Camera : AppCompatActivity(), LifecycleOwner {
         ContextCompat.checkSelfPermission(
                 baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
+
 }
