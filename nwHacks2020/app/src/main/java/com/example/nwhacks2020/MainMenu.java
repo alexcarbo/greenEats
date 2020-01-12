@@ -28,4 +28,9 @@ public class MainMenu extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), BuyFood.class);
         startActivity(intent);
     }
+
+    public void goToScanReceipt(View view){
+        Intent intent = new Intent(getApplicationContext(), Camera.class);
+        startActivity(intent);
+    }
 }
