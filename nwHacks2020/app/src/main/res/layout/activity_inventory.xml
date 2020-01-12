@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Inventory">
 
 
@@ -26,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recommend Recipes"
+            android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:layout_weight="1"
             android:onClick="activateStringGetter"
@@ -40,6 +42,8 @@
         android:minHeight="?attr/actionBarSize"
         android:background="@color/green"
         android:elevation="10dp"
+        app:theme="@style/ToolBarStyle"
+        android:textColor="#FFFFFF"
         >
 
         <ImageView
@@ -51,7 +55,8 @@
             android:layout_gravity="end"
             android:layout_alignParentEnd="true"
             android:background="@drawable/ic_add_black_24dp"
-            android:onClick="goToAddFood"/>
+            android:onClick="goToAddFood"
+            android:textColor="#FFFFFF"/>
 
 
     </androidx.appcompat.widget.Toolbar>

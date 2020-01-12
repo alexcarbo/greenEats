@@ -8,12 +8,14 @@
     android:gravity="center">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/manualentrytoolbar"
+        android:id="@+id/inventorytoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:background="@color/green"
         android:elevation="10dp"
+        android:textColor="#FFFFFF"
+        app:theme="@style/ToolBarStyle"
         />
 
     <RelativeLayout

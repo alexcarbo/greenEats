@@ -47,6 +47,7 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:text="Get Started"
+        android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:onClick="goToLogin"
         />
