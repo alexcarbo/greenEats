@@ -18,9 +18,7 @@
         <activity android:name=".Camera" />
         <activity android:name=".Speech" />
         <activity android:name=".Recipes" />
-
-        android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ManualEntry"></activity>
+        <activity android:name=".ManualEntry"/>
 
         <activity android:name=".AddFood" />
         <activity android:name=".Inventory" />

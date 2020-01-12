@@ -58,6 +58,9 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
