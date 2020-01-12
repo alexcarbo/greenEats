@@ -111,7 +111,6 @@ public class Inventory extends AppCompatActivity {
                         itemSharedPreferences = getSharedPreferences("com.mendozae.teamflickr", Context.MODE_PRIVATE);
                         itemSharedPreferences.edit().putString("item", totalItems.toString()).apply();
                         startActivity(intent);
-
                     }
                 });
            }
@@ -157,7 +156,7 @@ public class Inventory extends AppCompatActivity {
                 viewHolder = (ViewHolder) view.getTag();
             }
 
-            TextView food = (TextView) view.findViewById(R.id.name);
+            TextView food = (TextView) view.findViewById(R.id.foodItem);
 
             food.setText(foodItemNames.get(index));
 
