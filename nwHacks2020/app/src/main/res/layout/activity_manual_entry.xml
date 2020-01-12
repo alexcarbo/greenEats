@@ -40,6 +40,7 @@
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:text="Submit"
+            android:textColor="#FFFFFF"
             android:onClick="submitEntry"
             android:layout_below="@id/expirydateinput"
             />

@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:onClick="onSpeechButtonClicked"
             android:text="Speak now"
+            android:textColor="#FFFFFF"
             android:layout_below="@id/hello2" />
 
     </RelativeLayout>
