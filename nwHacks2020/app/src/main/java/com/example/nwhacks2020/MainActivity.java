@@ -15,17 +15,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToLogin(View view){
-        Intent intent = new Intent(getApplicationContext(), LoginPage.class);
+        Intent intent = new Intent(getApplicationContext(), Speech.class);
         startActivity(intent);
     }
 
-    public void goToAddFood(View view){
-        Intent intent = new Intent(getApplicationContext(), AddFood.class);
-        startActivity(intent);
-    }
 
-    public void goToBuyFood(View view){
-        Intent intent = new Intent(getApplicationContext(), BuyFood.class);
-        startActivity(intent);
-    }
 }

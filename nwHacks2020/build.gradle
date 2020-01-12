@@ -19,7 +19,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven {url 'https://csspeechstorage.blob.core.windows.net/maven/'}
     }
 }
 
