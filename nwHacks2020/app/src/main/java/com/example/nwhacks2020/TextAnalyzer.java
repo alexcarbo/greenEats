@@ -85,10 +85,10 @@ public class TextAnalyzer{
 
                                 boolean flag = false;
                                 for(String str : possibleStrings) {
-                                    if(str.contains("*") && str.contains("--")) {
+                                    if(str.contains("*") || str.contains("--")) {
                                         flag = false;
                                     }
-                                    if(flag && !str.contains(".") && !str.contains("ORDERED") && !str.contains("Total") && !str.contains("$")) {
+                                    if(flag && !str.contains(".") && !str.contains("ORDERED") && !str.contains("Total") && !str.contains("$") && !str.contains("?") && !str.contains("!")) {
                                        items.add(str);
                                     }
                                     if("amount".equals(str.toLowerCase())) {
