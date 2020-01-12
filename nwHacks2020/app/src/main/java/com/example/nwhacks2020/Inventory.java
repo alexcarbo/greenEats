@@ -52,6 +52,7 @@ public class Inventory extends AppCompatActivity {
     List<String> items;
     Button recommendRecipes;
     public SharedPreferences itemSharedPreferences;
+    String jsonRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class Inventory extends AppCompatActivity {
                         for(String item: items){
 
                         }
-                        
+
                         Intent intent = new Intent(getApplicationContext(), Recipes.class);
                         itemSharedPreferences = getSharedPreferences("com.mendozae.teamflickr", Context.MODE_PRIVATE);
                         itemSharedPreferences.edit().putString("item", totalItems).apply();
@@ -107,77 +108,6 @@ public class Inventory extends AppCompatActivity {
     public void goToAddFood(View view){
         Intent intent = new Intent(getApplicationContext(), AddFood.class);
         startActivity(intent);
-    }
-
-
-    public void getJSONstring(String ingredients) throws IOException {
-        String url = "https://sarvan13.api.stdlib.com/nwhacks@dev/foodrec/?ingredients=" + ingredients;
-        Log.i("url", url);
-
-//        URL url = new URL("https://sarvan13.api.stdlib.com/nwhacks@dev/foodrec/?ingredients=" + ingredients);
-
-//        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-//        con.setRequestMethod("GET");
-//
-//        con.setConnectTimeout((3000));
-//
-//
-//        int status = con.getResponseCode();
-//
-//        Reader streamReader = null;
-//
-//        if (status > 299) {
-//            streamReader = new InputStreamReader(con.getErrorStream());
-//        } else {
-//            streamReader = new InputStreamReader(con.getInputStream());
-//        }
-//
-//        BufferedReader in = new BufferedReader(
-//                new InputStreamReader(con.getInputStream()));
-//        String inputLine;
-//        StringBuffer content = new StringBuffer();
-//        while ((inputLine = in.readLine()) != null) {
-//            content.append(inputLine);
-//        }
-//        in.close();
-//
-//        Log.i("string", inputLine);
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.i("Response is: ", response.substring(0,500));
-                        try {
-                            onFinish(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.i("Failed", "ohhhhhhh nooooo");
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
-
-
-
-    }
-
-    public void onFinish(String response) throws JSONException {
-        JSONObject jrecipe = new JSONObject(response);
-
-
     }
 
 
