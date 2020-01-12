@@ -37,5 +37,10 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goToExpiringSoon(View view){
+        Intent intent = new Intent(getApplicationContext(), ExpiringSoon.class);
+        startActivity(intent);
+    }
+
 
 }

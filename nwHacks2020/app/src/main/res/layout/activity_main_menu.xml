@@ -93,6 +93,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_below="@id/button2"
+            android:onClick="goToExpiringSoon"
             />
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
