@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +34,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +54,8 @@ public class Inventory extends AppCompatActivity {
     Toolbar toolbar;
     List<String> items;
     Button recommendRecipes;
+    public SharedPreferences itemSharedPreferences;
+    String jsonRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +94,7 @@ public class Inventory extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         StringBuilder totalItems =new StringBuilder ();
+                        
                         for(String item: items){
                             String lowStr = item.toLowerCase().replace(" ","+");
                             totalItems.append(lowStr);
@@ -88,7 +103,15 @@ public class Inventory extends AppCompatActivity {
                         if (totalItems.length() > 0) {
                             totalItems.setLength(totalItems.length() - 1);
                         }
+
                         Log.i("megaString: ", totalItems.toString());
+
+
+                        Intent intent = new Intent(getApplicationContext(), Recipes.class);
+                        itemSharedPreferences = getSharedPreferences("com.mendozae.teamflickr", Context.MODE_PRIVATE);
+                        itemSharedPreferences.edit().putString("item", totalItems).apply();
+                        startActivity(intent);
+>>>>>>> 6f33955103c2c0d677e17a61b127086eddad1d9d
                     }
                 });
            }
@@ -99,15 +122,6 @@ public class Inventory extends AppCompatActivity {
     public void goToAddFood(View view){
         Intent intent = new Intent(getApplicationContext(), AddFood.class);
         startActivity(intent);
-    }
-
-    public void activateStringGetter(View view){
-//        String text = editText.getText().toString();
-//        try {
-//            getJSONstring(text);
-//        }catch(Exception e){
-//            Log.i("Failed", "uhhhhhhh");
-//        }
     }
 
 
