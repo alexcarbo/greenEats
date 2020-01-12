@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,8 +68,11 @@ public class Inventory extends AppCompatActivity {
            }
        });
 
+    }
 
-
+    public void goToAddFood(View view){
+        Intent intent = new Intent(getApplicationContext(), AddFood.class);
+        startActivity(intent);
     }
 
     private class CustomAdapter extends BaseAdapter {
