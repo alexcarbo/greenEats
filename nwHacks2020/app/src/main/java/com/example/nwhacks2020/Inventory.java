@@ -156,7 +156,7 @@ public class Inventory extends AppCompatActivity {
                 viewHolder = (ViewHolder) view.getTag();
             }
 
-            TextView food = (TextView) view.findViewById(R.id.name);
+            TextView food = (TextView) view.findViewById(R.id.foodItem);
 
             food.setText(foodItemNames.get(index));
 
