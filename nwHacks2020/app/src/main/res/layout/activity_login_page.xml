@@ -38,7 +38,7 @@
         android:id="@+id/loginOrsignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Sign Up"
         android:layout_marginLeft="60dp"
         android:layout_below="@id/password"/>
 
