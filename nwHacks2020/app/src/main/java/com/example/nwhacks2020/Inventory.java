@@ -233,7 +233,8 @@ public class Inventory extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                             //Setting message manually and performing action on button click
-                            builder.setMessage("Do you want to delete this entry ?")
+                            builder.setTitle("Delete Entry")
+                                    .setMessage("Do you want to delete this entry ?")
                                     .setCancelable(false)
                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
@@ -259,7 +260,7 @@ public class Inventory extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int id) {
                                             //  Action for 'NO' Button
                                             dialog.cancel();
-                                            Toast.makeText(getApplicationContext(),"Failed",
+                                            Toast.makeText(getApplicationContext(),"Okay",
                                                     Toast.LENGTH_SHORT).show();
                                         }
                                     });
