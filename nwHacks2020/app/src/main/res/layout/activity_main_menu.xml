@@ -8,37 +8,35 @@
     android:gravity="center">
 
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/button1"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="my Food"
+        android:text="my Fridge"
         android:onClick="goToInventory"
+
         />
 
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/button2"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Add Food"
+        android:text="Add Food Items"
         android:layout_below="@id/button1"
         android:onClick="goToAddFood"
         />
+
     <Button
-        android:id="@+id/button3"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Buy Food"
-        android:layout_below="@id/button2"
-        android:onClick="goToBuyFood"
-        />
-    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/button4"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Warning!"
-        android:layout_below="@id/button3"
+        android:text="Expiring Soon"
+        android:layout_below="@id/button2"
         />
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/button5"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
