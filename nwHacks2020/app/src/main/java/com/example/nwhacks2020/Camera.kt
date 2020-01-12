@@ -29,6 +29,7 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.Executors
+import java.util.regex.Pattern
 
 
 // This is an arbitrary number we are using to keep track of the permission
@@ -185,13 +186,13 @@ class Camera : AppCompatActivity(), LifecycleOwner {
                             val items: MutableList<String> = ArrayList()
                             var flag = false
                             for (str in possibleStrings) {
-                                if (str.contains("*")) {
+                                if (str.contains("*") || str.contains("--") || str.toLowerCase().contains("total")) {
                                     flag = false
                                 }
-                                if (flag && !str.contains(".") && !str.contains("ORDERED")) {
+                                if (flag && !str.contains(".") && !str.contains("ORDERED") && !str.contains("?") && !str.contains("!")) {
                                     items.add(str)
                                 }
-                                if (str == "AMOUNT") {
+                                if (str.toLowerCase().equals("AMOUNT") || (Pattern.matches("^\\D?(\\d{3})\\D?\\D?(\\d{3})\\D?(\\d{4})\$", str) && items.isEmpty())) {
                                     flag = true
                                 }
                             }
@@ -199,15 +200,9 @@ class Camera : AppCompatActivity(), LifecycleOwner {
                                 Log.i("ITEM", item)
                             }
                             //SEND ITEMS TO MY FRIDGE
-                            val mStore: FirebaseFirestore
-                            val mAuth: FirebaseAuth
-
-
-                            mStore = FirebaseFirestore.getInstance()
-                            mAuth = FirebaseAuth.getInstance()
 
                             val updater = MyFridgeUpdater()
-                            updater.updateMyFridge(mStore, mAuth, items)
+                            updater.updateMyFridge(items)
                         }
                         .addOnFailureListener {
                             // Task failed with an exception

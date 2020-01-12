@@ -16,12 +16,18 @@ import java.util.Map;
 
 import io.opencensus.internal.StringUtils;
 
-public class MyFridgeUpdater {
-    MyFridgeUpdater() {
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
+public class MyFridgeUpdater {
+    FirebaseAuth mAuth;
+    FirebaseFirestore mStore;
+
+    MyFridgeUpdater() {
+        mStore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
     }
 
-    public void updateMyFridge(FirebaseFirestore mStore, FirebaseAuth mAuth, List<String> itemsToAdd) {
+    public void updateMyFridge(List<String> itemsToAdd) {
         mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -42,14 +48,16 @@ public class MyFridgeUpdater {
                                 item = item.trim();
                                 item = item.toLowerCase();
 
-                                Log.i("ingredient", item);
-                                if(!currentItems.containsKey(item)){
-                                    myFridge.put(item, new Long(-1));
-                                }else{
-                                    myFridge.put(item, currentItems.get(item));
+                                if(!item.isEmpty()) {
+                                    Log.i("ingredient", item);
+                                    if(!currentItems.containsKey(item)){
+                                        myFridge.put(item, new Long(-1));
+                                    }else{
+                                        myFridge.put(item, currentItems.get(item));
+                                    }
                                 }
                             }
-
+                            Log.i("size", Integer.toString(myFridge.size()));
                             mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
                                     .update("Inventory", myFridge);
                         }
