@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -63,6 +64,7 @@ public class Inventory extends AppCompatActivity {
     AlertDialog.Builder builder;
     ArrayList<Boolean> checkedOrNot;
     public static String itemString = "";
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,8 @@ public class Inventory extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
 
         mStore =FirebaseFirestore.getInstance();
         listView = (ListView) findViewById(R.id.inventorylistview);
@@ -100,6 +104,27 @@ public class Inventory extends AppCompatActivity {
                     if(inventory.size() == 0){
                         listView.setVisibility(View.GONE);
                     }
+                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                        @Override
+                        public void onRefresh() {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot snapshot = task.getResult();
+                                    if(snapshot.exists()){
+                                        inventory = (HashMap<String, Number>) snapshot.get("Inventory");
+                                        foodItemNames = new ArrayList<>(inventory.keySet());
+                                        checkedOrNot = new ArrayList<>();
+                                        for(String name: foodItemNames){
+                                            checkedOrNot.add(false);
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                        swipeRefreshLayout.setRefreshing(false);
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
 
                 recommendRecipes.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +196,7 @@ public class Inventory extends AppCompatActivity {
                 viewHolder.editButton = (ImageView) view.findViewById(R.id.edit);
                 viewHolder.deleteButton = (ImageView) view.findViewById(R.id.delete);
                 viewHolder.checkBox = (CheckBox) view.findViewById((R.id.checkbox));
+
                 view.setTag(viewHolder);
             }else{
                 viewHolder = (ViewHolder) view.getTag();
@@ -178,9 +204,16 @@ public class Inventory extends AppCompatActivity {
             viewHolder.editButton.setImageResource(R.drawable.ic_edit_black_24dp);
             viewHolder.deleteButton.setImageResource(R.drawable.ic_delete_black_24dp);
             TextView food = (TextView) view.findViewById(R.id.foodItem);
+            TextView expiry = (TextView) view.findViewById(R.id.expirydate);
 
             food.setText(foodItemNames.get(index));
-
+            if(inventory.get(foodItemNames.get(i)).toString().equals("-1")){
+                expiry.setVisibility(View.GONE);
+            }else {
+                expiry.setVisibility(View.VISIBLE);
+                String text = "Expiry Day in: " + inventory.get(foodItemNames.get(i)).toString() + " days";
+                expiry.setText(text);
+            }
 //            if(checkedOrNot.get(i)){
 //                viewHolder.checkBox.setChecked(true);
 //            }else{
