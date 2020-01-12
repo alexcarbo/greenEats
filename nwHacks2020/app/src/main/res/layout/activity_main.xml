@@ -45,6 +45,7 @@
         android:id="@+id/gotologin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
         android:text="Get Started"
         android:layout_alignParentBottom="true"
         android:onClick="goToLogin"

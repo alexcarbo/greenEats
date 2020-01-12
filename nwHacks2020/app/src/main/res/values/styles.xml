@@ -11,6 +11,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/green</item>
         <item name="colorAccent">@color/green</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>

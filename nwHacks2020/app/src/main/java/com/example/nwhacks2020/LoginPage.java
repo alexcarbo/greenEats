@@ -2,6 +2,7 @@ package com.example.nwhacks2020;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,11 +39,18 @@ public class LoginPage extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String userName, userEmail, userPassword;
     TextView switcher;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+
+        toolbar =  findViewById(R.id.manualentrytoolbar);
+        toolbar.setTitle("Login");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
         ddb = FirebaseFirestore.getInstance();
@@ -118,6 +126,12 @@ public class LoginPage extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
     }
 
     private void initializeFields(){
