@@ -7,6 +7,41 @@
     tools:context=".MainMenu"
     >
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="155dp"
+            android:text="green"
+            android:textStyle="bold"
+            android:textColor="#808080"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="eats"
+            android:textStyle="bold"
+            android:textColor="#808080"
+            android:textSize="50sp"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_public_grey"
+        android:layout_marginTop="243dp"
+        android:layout_marginLeft="247dp"/>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/manualentrytoolbar"
         android:layout_width="match_parent"
@@ -16,6 +51,7 @@
         android:elevation="10dp"
         >
     </androidx.appcompat.widget.Toolbar>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,19 +60,23 @@
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/button1"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="my Fridge"
+            android:layout_width="275dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="300dp"
+            android:text="My Fridge"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:onClick="goToInventory"
-
             />
 
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/button2"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="275dp"
+            android:layout_height="55dp"
             android:text="Add Food Items"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:layout_below="@id/button1"
             android:onClick="goToAddFood"
             />
@@ -44,17 +84,21 @@
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/button4"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="275dp"
+            android:layout_height="55dp"
             android:text="Expiring Soon"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:layout_below="@id/button2"
             />
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/button5"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="275dp"
+            android:layout_height="55dp"
             android:text="Scan Receipt"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:layout_below="@id/button4"
             android:onClick="goToScanReceipt"
             />
