@@ -127,7 +127,7 @@ public class Inventory extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-    
+
 
     private class CustomAdapter extends BaseAdapter {
 
