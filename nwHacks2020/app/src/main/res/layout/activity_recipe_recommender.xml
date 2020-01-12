@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Speech"
+    tools:context=".RecipeRecommender"
     android:gravity="center">
 
-    <TextView
-        android:id="@+id/hello"
-        android:layout_width="366dp"
-        android:layout_height="295dp"
-        android:text="Hello World!"
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Ingredients"
          />
 
     <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/button"
+        android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onSpeechButtonClicked"
         android:text="Button"
-        android:layout_below="@id/hello" />
-
+        android:layout_below="@id/editText"
+        android:onClick="activateStringGetter"/>
 </RelativeLayout>
