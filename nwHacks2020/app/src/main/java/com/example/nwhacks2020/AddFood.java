@@ -18,4 +18,9 @@ public class AddFood extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), Speech.class);
         startActivity(intent);
     }
+
+    public void goToScanReceipt(View view){
+        Intent intent = new Intent(getApplicationContext(), Camera.class);
+        startActivity(intent);
+    }
 }
