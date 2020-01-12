@@ -27,14 +27,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Inventory extends AppCompatActivity {
 
     private FirebaseFirestore mStore;
     ListView listView;
     private FirebaseAuth mAuth;
-    ArrayList<String> inventory;
+    Map<String, Number> inventory;
+    ArrayList<String> foodItemNames;
     CustomAdapter adapter;
     Toolbar toolbar;
     List<String> items;
@@ -64,7 +67,8 @@ public class Inventory extends AppCompatActivity {
            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot snapshot = task.getResult();
                 if(snapshot.exists()){
-                    inventory = (ArrayList<String>) snapshot.get("Inventory");
+                    inventory = (HashMap<String,Number>) snapshot.get("Inventory");
+                    foodItemNames = new ArrayList<>(inventory.keySet());
                     adapter = new CustomAdapter();
                     listView.setAdapter(adapter);
                     if(inventory.size() == 0){
@@ -75,10 +79,16 @@ public class Inventory extends AppCompatActivity {
                 recommendRecipes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String totalItems;
+                        StringBuilder totalItems =new StringBuilder ();
                         for(String item: items){
-
+                            String lowStr = item.toLowerCase().replace(" ","+");
+                            totalItems.append(lowStr);
+                            totalItems.append(",");
                         }
+                        if (totalItems.length() > 0) {
+                            totalItems.setLength(totalItems.length() - 1);
+                        }
+                        Log.i("megaString: ", totalItems.toString());
                     }
                 });
            }
@@ -105,7 +115,7 @@ public class Inventory extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return inventory.size();
+            return foodItemNames.size();
         }
 
         @Override
@@ -135,7 +145,7 @@ public class Inventory extends AppCompatActivity {
 
             TextView food = (TextView) view.findViewById(R.id.name);
 
-            food.setText(inventory.get(index));
+            food.setText(foodItemNames.get(index));
 
 
             viewHolder.editButton.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +171,7 @@ public class Inventory extends AppCompatActivity {
                         items.remove(inventory.get(i));
                     }else{
                         viewHolder.checkBox.setChecked(true);
-                        items.add(inventory.get(i));
+                        items.add(foodItemNames.get(i));
                     }
                 }
             });

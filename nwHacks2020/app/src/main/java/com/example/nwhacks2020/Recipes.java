@@ -19,35 +19,35 @@ public class Recipes extends AppCompatActivity {
 
     }
 
-    private class CustomAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return inventory.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            final int index = i;
-
-
-
-            //imageView.setImageResource(IMAGES[i]);
-
-            // textView_desc.setText(DESCRIPTIONS[i]);
-            return view;
-        }
-
-
-    }
+//    private class CustomAdapter extends BaseAdapter {
+//
+//        @Override
+//        public int getCount() {
+//            return inventory.size();
+//        }
+//
+//        @Override
+//        public Object getItem(int i) {
+//            return null;
+//        }
+//
+//        @Override
+//        public long getItemId(int i) {
+//            return 0;
+//        }
+//
+//        @Override
+//        public View getView(int i, View view, ViewGroup viewGroup) {
+//            final int index = i;
+//
+//
+//
+//            //imageView.setImageResource(IMAGES[i]);
+//
+//            // textView_desc.setText(DESCRIPTIONS[i]);
+//            return view;
+//        }
+//
+//
+//    }
 }
