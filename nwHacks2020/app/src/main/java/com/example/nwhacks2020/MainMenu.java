@@ -17,10 +17,9 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         toolbar =  findViewById(R.id.manualentrytoolbar);
-        toolbar.setTitle("Main Menu");
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 
     public void goToInventory(View view){
@@ -38,9 +37,5 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    public boolean onSupportNavigateUp(){
-        onBackPressed();
-        return true;
-    }
+
 }
