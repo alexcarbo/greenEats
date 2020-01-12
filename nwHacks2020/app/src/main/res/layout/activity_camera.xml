@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom|center_horizontal"
@@ -12,22 +11,22 @@
         android:id="@+id/manualentrytoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
         android:background="@color/green"
         android:elevation="10dp"
-        app:theme="@style/ToolBarStyle"
+        android:minHeight="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        >
-    </androidx.appcompat.widget.Toolbar>
+        app:theme="@style/ToolBarStyle"></androidx.appcompat.widget.Toolbar>
 
     <TextureView
         android:id="@+id/view_finder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="400dp"
+        android:layout_height="533dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/capture_button"
@@ -35,21 +34,21 @@
         android:layout_height="72dp"
         android:layout_margin="24dp"
         android:layout_toLeftOf="@id/upload_button"
-        app:srcCompat="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageButton
-    android:id="@+id/upload_button"
-    android:layout_width="72dp"
-    android:layout_height="72dp"
-    android:layout_margin="24dp"
-    android:layout_toRightOf="@id/capture_button"
-        app:srcCompat="@android:drawable/ic_menu_upload"
+        android:id="@+id/upload_button"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="24dp"
+        android:layout_toRightOf="@id/capture_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_upload"
 
-     />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
