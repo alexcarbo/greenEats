@@ -9,13 +9,15 @@
 
 
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/button1"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Manual Entry"/>
-        android:onClick="goToSpeech"
+
 
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/button2"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -23,6 +25,7 @@
         android:onClick="goToSpeech"
         android:text="Voice Entry" />
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/button3"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
