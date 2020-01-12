@@ -55,6 +55,7 @@ public class Speech extends AppCompatActivity {
 
     public void onSpeechButtonClicked(View v) {
         TextView txt = (TextView) this.findViewById(R.id.hello); // 'hello' is the ID of your text view
+        TextView examples = (TextView) this.findViewById(R.id.hello2);
 
         try {
             SpeechConfig config = SpeechConfig.fromSubscription(speechSubscriptionKey, serviceRegion);
@@ -72,7 +73,6 @@ public class Speech extends AppCompatActivity {
             assert(result != null);
 
             if (result.getReason() == ResultReason.RecognizedSpeech) {
-                txt.setText(result.toString());
 //                Log.i("result", result.toString());
                 String str = result.toString();
                 str = str.toLowerCase();
@@ -91,6 +91,16 @@ public class Speech extends AppCompatActivity {
                         Log.i("ingredient:", ingredients.get(i));
                     }
                 }
+
+                StringBuilder strDisplay = new StringBuilder();
+                for (String ingredient : ingredients) {
+                    strDisplay.append(ingredient);
+                    strDisplay.append(", ");
+                }
+                strDisplay.setLength(strDisplay.length()-2);
+
+                examples.setVisibility(View.GONE);
+                txt.setText("Your inputted ingredients: " + strDisplay.toString());
 
                 mStore.collection("Users").document(mAuth.getCurrentUser().getDisplayName())
                         .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
