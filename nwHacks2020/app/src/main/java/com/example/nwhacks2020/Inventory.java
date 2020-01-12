@@ -69,7 +69,7 @@ public class Inventory extends AppCompatActivity {
         setContentView(R.layout.activity_inventory);
 
         toolbar =  findViewById(R.id.inventorytoolbar);
-        toolbar.setTitle("Inventory");
+        toolbar.setTitle("My Fridge");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

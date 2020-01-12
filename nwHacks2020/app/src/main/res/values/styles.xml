@@ -17,9 +17,11 @@
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:toolbarStyle">@style/ToolBarStyle</item>
     </style>
 
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColorPrimary">@android:color/black</item>
     </style>
