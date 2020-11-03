@@ -1,5 +1,5 @@
 # greenEats
-Winner of nwHacks2020 Hackathon.
+Winner of nwHacks2020 Hackathon - Western Canada's Largest Hackathon.
 
 greenEats is an all in one grocery and food waste management app. With greenEats, logging your groceries is as simple as taking a picture of your receipt or listing out purchases with your voice as you put them away. With this information greenEats holds an inventory of your current groceries (called My Fridge) and notifies you when your items are about to expire. 
 
